@@ -1,122 +1,166 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [pagina, setPagina] = useState('Visão geral');
+
+  const menu = [
+    'Visão geral',
+    'Lançamentos',
+    'Contas bancárias',
+    'Cartões',
+    'Parcelamentos',
+    'Categorias',
+    'Metas financeiras',
+    'Relatórios',
+  ];
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app">
+      <aside className="sidebar">
+        <div className="brand">
+          <div className="brand-icon">M</div>
+          <div>
+            <strong>Meu Financeiro</strong>
+            <span>CONTROLE INTELIGENTE</span>
+          </div>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
+        <div className="menu-label">MENU PRINCIPAL</div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <nav>
+          {menu.map((item, index) => (
+            <button
+              key={item}
+              className={pagina === item ? 'menu-item active' : 'menu-item'}
+              onClick={() => setPagina(item)}
+            >
+              <span>{['◫', '⇄', '▣', '▤', '▧', '◈', '◎', '▥'][index]}</span>
+              {item}
+            </button>
+          ))}
+        </nav>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        <div className="sidebar-bottom">
+          <div className="profile">
+            <div className="avatar">A</div>
+            <div>
+              <strong>Minha conta</strong>
+              <span>Área financeira</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main className="main">
+        <header className="topbar">
+          <div>
+            <span className="breadcrumb">Meu Financeiro /</span>
+            <strong>{pagina}</strong>
+          </div>
+          <div className="top-actions">
+            <span className="period">Novembro de 2026</span>
+            <div className="avatar">A</div>
+          </div>
+        </header>
+
+        <section className="content">
+          <div className="welcome">
+            <div>
+              <h1>{pagina === 'Visão geral' ? 'Visão geral' : pagina}</h1>
+              <p>Acompanhe e organize sua vida financeira.</p>
+            </div>
+            <button className="primary-button">+ Novo lançamento</button>
+          </div>
+
+          {pagina === 'Visão geral' ? (
+            <>
+              <div className="summary-grid">
+                <div className="summary-card">
+                  <span>Saldo total</span>
+                  <strong>R$ 0,00</strong>
+                  <small>Consolidado de suas contas</small>
+                </div>
+                <div className="summary-card">
+                  <span>Receitas do mês</span>
+                  <strong className="green">R$ 0,00</strong>
+                  <small>Entradas registradas</small>
+                </div>
+                <div className="summary-card">
+                  <span>Despesas do mês</span>
+                  <strong className="red">R$ 0,00</strong>
+                  <small>Saídas registradas</small>
+                </div>
+                <div className="summary-card">
+                  <span>Economia do mês</span>
+                  <strong>R$ 0,00</strong>
+                  <small>Receitas menos despesas</small>
+                </div>
+              </div>
+
+              <div className="panels">
+                <section className="panel">
+                  <div className="panel-heading">
+                    <div>
+                      <h2>Movimentação financeira</h2>
+                      <p>Resumo das receitas e despesas</p>
+                    </div>
+                    <span className="tag">Este mês</span>
+                  </div>
+                  <div className="empty-chart">
+                    <div className="chart-symbol">▥</div>
+                    <strong>Nenhuma movimentação ainda</strong>
+                    <p>
+                      Seus dados aparecerão aqui quando você cadastrar
+                      lançamentos.
+                    </p>
+                  </div>
+                </section>
+
+                <section className="panel">
+                  <div className="panel-heading">
+                    <div>
+                      <h2>Despesas por categoria</h2>
+                      <p>Distribuição dos seus gastos</p>
+                    </div>
+                  </div>
+                  <div className="empty-chart">
+                    <div className="chart-symbol">◉</div>
+                    <strong>Sem despesas cadastradas</strong>
+                    <p>As categorias serão exibidas neste espaço.</p>
+                  </div>
+                </section>
+              </div>
+
+              <section className="panel transactions">
+                <div className="panel-heading">
+                  <div>
+                    <h2>Últimos lançamentos</h2>
+                    <p>Suas movimentações mais recentes</p>
+                  </div>
+                  <button
+                    className="text-button"
+                    onClick={() => setPagina('Lançamentos')}
+                  >
+                    Ver todos
+                  </button>
+                </div>
+                <div className="empty-transactions">
+                  Seus lançamentos aparecerão aqui.
+                </div>
+              </section>
+            </>
+          ) : (
+            <section className="panel page-placeholder">
+              <div className="chart-symbol">◫</div>
+              <h2>{pagina}</h2>
+              <p>Esta área será desenvolvida na próxima etapa.</p>
+            </section>
+          )}
+        </section>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
